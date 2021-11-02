@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <button
+        class="btn btn-sm btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Employee Add
+        <span> <i class="fa fa-plus"></i> </span>
+      </button>
+    </div>
+    <div class="col-md-10">
+      <input type="search" class="form-control" [(ngModel)]="search">
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <table class="table table-striped table-hover">
+        <thead class="text-center text-light bg-dark">
+          <th scope="col">Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Gender</th>
+          <th>Role</th>
+          <th>Skills</th>
+          <th>YearOfExp</th>
+          <th>Actions</th>
+        </thead>
+        <tbody class="text-center text-bold">
+          <tr
+            *ngFor="
+              let x of employee|filter:search | paginate: { itemsPerPage: 5, currentPage: p } ;
+              let i = index
+            "
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ x.eName | titlecase }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.mobile }}</td>
+            <td>{{ x.gender | titlecase }}</td>
+            <td>{{ x.role | titlecase }}</td>
+            <td>{{ x.skill | titlecase }}</td>
+            <td>{{ x.yearExp }}Yes</td>
+            <td>
+              <button class="btn btn-sm btn-danger" (click)="deleteData(x)">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <div class="position-absolute end-50">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
